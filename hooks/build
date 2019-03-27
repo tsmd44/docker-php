@@ -1,0 +1,7 @@
+#!/bin/bash
+
+set -eu
+
+PHP_VERSION=${DOCKER_TAG}-fpm-alpine
+
+docker build --build-arg PHP_VERSION=${PHP_VERSION} -t $IMAGE_NAME .
