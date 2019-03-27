@@ -2,6 +2,10 @@
 
 set -eu
 
-PHP_VERSION=${DOCKER_TAG}-fpm-alpine
+if [[ "${DOCKER_TAG}" = "latest" ]]; then
+  PHP_VERSION=7.2-fpm-alpine
+else
+  PHP_VERSION=${DOCKER_TAG}-fpm-alpine
+fi
 
 docker build --build-arg PHP_VERSION=${PHP_VERSION} -t $IMAGE_NAME .
