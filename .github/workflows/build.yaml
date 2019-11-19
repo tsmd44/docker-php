@@ -1,0 +1,10 @@
+name: Build
+on: [push]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the docker image
+      run: docker build . --file Dockerfile --tag tsmd44/php:$(GITHUB_SHA)
