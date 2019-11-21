@@ -11,7 +11,8 @@ jobs:
     - name: Build and push image
       env:
         PHP_VERSION: 7.2-fpm-alpine
-      run: docker run \
+      run: |-
+        docker run \
         -v `pwd`:/workspace \
         -v /home/runner/.docker/config.json:/kaniko/.docker/config.json:ro \
         gcr.io/kaniko-project/executor:latest \
