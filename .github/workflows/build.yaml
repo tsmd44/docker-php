@@ -17,7 +17,8 @@ jobs:
         -v /home/runner/.docker/config.json:/kaniko/.docker/config.json:ro \
         gcr.io/kaniko-project/executor:latest \
         --dockerfile Dockerfile \
-        --destination tsmd44/php:${GITHUB_SHA} \
         --context dir:///workspace/ \
+        --destination tsmd44/php:${GITHUB_SHA} \
+        --build-arg PHP_VERSION=${PHP_VERSION} \
         --cache=true \
-        --build-arg PHP_VERSION=${PHP_VERSION}
+        --cache-repo tsmd44/php-cache \
