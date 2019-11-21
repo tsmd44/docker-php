@@ -1,0 +1,30 @@
+name: CI
+on:
+  push:
+    branches:
+    - master
+jobs:
+  build_and_push:
+    name: Build and Push Image
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        php: [7.2, 7.3, 7.4-rc]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Login to DockerHub
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u tsmd44 --password-stdin
+    - name: Build and Push Image
+      env:
+        PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
+      run: |-
+        docker run \
+        -v `pwd`:/workspace \
+        -v /home/runner/.docker/config.json:/kaniko/.docker/config.json:ro \
+        gcr.io/kaniko-project/executor:latest \
+        --dockerfile Dockerfile \
+        --context dir:///workspace/ \
+        --destination tsmd44/php:${{ matrix.php }} \
+        --build-arg PHP_VERSION=${PHP_VERSION} \
+        --cache=true \
+        --cache-repo tsmd44/php-cache
