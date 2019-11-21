@@ -8,5 +8,8 @@ jobs:
     - uses: actions/checkout@v1
     - name: Build the docker image
       env:
+        DOCKER_BUILDKIT: 1
         PHP_VERSION: 7.2-fpm-alpine
       run: docker build . --file Dockerfile --tag tsmd44/php:${GITHUB_SHA} --build-arg PHP_VERSION=${PHP_VERSION}
+    - name: Show docker processes
+      run: docker ps -a
