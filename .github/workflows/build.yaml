@@ -12,6 +12,6 @@ jobs:
         PHP_VERSION: 7.2-fpm-alpine
       run: docker build . --file Dockerfile --tag tsmd44/php:${GITHUB_SHA} --build-arg PHP_VERSION=${PHP_VERSION}
     - name: Login to DockerHub
-      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u tsmd44
+      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u tsmd44 --password-stdin
     - name: Push to docker registry
       run: docker push tsmd44/php:${GITHUB_SHA}
