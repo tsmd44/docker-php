@@ -33,4 +33,4 @@ RUN set -xe && \
     apk del .php-deps .build-deps && \
     rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
 
-RUN echo "aiueo"
+RUN exit 1
