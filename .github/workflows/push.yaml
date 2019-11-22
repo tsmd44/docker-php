@@ -3,6 +3,8 @@ on:
   push:
     branches:
     - master
+    paths:
+    - 'Dockerfile'
 jobs:
   build_and_push:
     name: Build and Push Image
@@ -12,15 +14,17 @@ jobs:
         php: [7.2, 7.3, 7.4-rc]
     steps:
     - uses: actions/checkout@v1
-    - name: Login to DockerHub
-      run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u tsmd44 --password-stdin
+    - uses: azure/docker-login@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build and Push Image
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       run: |-
         docker run \
         -v `pwd`:/workspace \
-        -v /home/runner/.docker/config.json:/kaniko/.docker/config.json:ro \
+        -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
         gcr.io/kaniko-project/executor:latest \
         --dockerfile Dockerfile \
         --context dir:///workspace/ \
