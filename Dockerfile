@@ -32,5 +32,3 @@ RUN set -xe && \
       gd && \
     apk del .php-deps .build-deps && \
     rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
-
-RUN exit 1
