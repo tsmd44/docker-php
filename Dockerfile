@@ -30,5 +30,7 @@ RUN set -xe && \
       pdo_mysql \
       intl \
       gd && \
-    apk del .php-deps .build-deps && \
+    apk del \
+      .php-deps \
+      .build-deps && \
     rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/*
