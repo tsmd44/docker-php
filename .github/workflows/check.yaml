@@ -1,4 +1,4 @@
-name: CI
+name: Check
 on:
   check_suite:
     types: [completed]
