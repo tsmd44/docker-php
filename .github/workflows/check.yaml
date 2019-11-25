@@ -1,7 +1,6 @@
 name: Check
 on:
-  check_suite:
-    types: [completed]
+- check_suite
 jobs:
   check:
     name: Check Suite Event
