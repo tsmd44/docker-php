@@ -1,0 +1,12 @@
+name: CI
+on:
+  check_suite:
+    types: [completed]
+jobs:
+  build:
+    name: Build Image
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: echo
+      run: echo "Check suite completed"
