@@ -1,8 +1,6 @@
 ARG PHP_VERSION
 FROM php:${PHP_VERSION}
 
-RUN exit 1
-
 RUN set -xe && \
     apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/v3.10/main/ \
       icu \

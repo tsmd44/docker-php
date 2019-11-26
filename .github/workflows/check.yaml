@@ -7,5 +7,5 @@ jobs:
     name: Status Check
     runs-on: ubuntu-18.04
     steps:
-    - name: Do Nothing
+    - name: Set Status as Success
       run: exit 0
