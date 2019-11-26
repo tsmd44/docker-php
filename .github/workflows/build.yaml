@@ -35,7 +35,7 @@ jobs:
     name: Status Check
     runs-on: ubuntu-18.04
     needs: build
-    if: always()
+    if: failure()
     steps:
-    - name: Do Nothing
-      run: exit 0
+    - name: Set Status as Failed
+      run: exit 1
