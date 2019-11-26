@@ -14,10 +14,6 @@ jobs:
         php: [7.2, 7.3, 7.4-rc]
     steps:
     - uses: actions/checkout@v1
-    - name: Dump GitHub Context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
     - name: Login to DockerHub
       run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u tsmd44 --password-stdin
     - name: Build Image

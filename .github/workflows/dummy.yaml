@@ -1,0 +1,11 @@
+name: Dummy
+on:
+  pull_request:
+    types: [opened, synchronize]
+jobs:
+  build:
+    name: Dummy job
+    runs-on: ubuntu-18.04
+    steps:
+    - name: Do Nothing
+      run: exit 0
