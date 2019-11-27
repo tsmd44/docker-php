@@ -1,3 +1,7 @@
 README.md
 .gitginore
 .github
+.vscode
+.idea
+.DS_Store
+.DS_Store?
