@@ -22,7 +22,7 @@ jobs:
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       run: |-
-        CMD="docker run \
+        docker run \
           -v `pwd`:/workspace \
           -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
           gcr.io/kaniko-project/executor:latest \
@@ -32,14 +32,7 @@ jobs:
           --build-arg PHP_VERSION=${PHP_VERSION} \
           --cache=true \
           --cache-repo tsmd44/php-cache \
-          --no-push"
-        if [[ ${{ matrix.php }} = "7.4" ]]; then \
-          echo "7.4";
-          $CMD; \
-        else \
-          echo "not 7.4";
-          $CMD; \
-        fi
+          --no-push
   check:
     name: Status Check
     runs-on: ubuntu-18.04
