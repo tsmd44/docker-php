@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-18.04
     strategy:
       matrix:
-        php: [7.2, 7.3, 7.4-rc]
+        php: [7.2, 7.3, 7.4]
     steps:
     - uses: actions/checkout@v1
     - uses: azure/docker-login@v1
@@ -22,13 +22,18 @@ jobs:
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       run: |-
-        docker run \
-        -v `pwd`:/workspace \
-        -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
-        gcr.io/kaniko-project/executor:latest \
-        --dockerfile Dockerfile \
-        --context dir:///workspace/ \
-        --destination tsmd44/php:${{ matrix.php }} \
-        --build-arg PHP_VERSION=${PHP_VERSION} \
-        --cache=true \
-        --cache-repo tsmd44/php-cache
+        CMD="docker run \
+          -v `pwd`:/workspace \
+          -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
+          gcr.io/kaniko-project/executor:latest \
+          --dockerfile Dockerfile \
+          --context dir:///workspace/ \
+          --destination tsmd44/php:${{ matrix.php }} \
+          --build-arg PHP_VERSION=${PHP_VERSION} \
+          --cache=true \
+          --cache-repo tsmd44/php-cache"
+        if [[ ${{ matrix.php }} = "7.4" ]]; then \
+          $CMD --destination tsmd44/php:latest; \
+        else \
+          $CMD; \
+        fi
