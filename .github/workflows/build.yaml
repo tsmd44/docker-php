@@ -4,6 +4,7 @@ on:
     types: [opened, synchronize]
     paths:
     - 'Dockerfile'
+    - '.github/workflows/build.yaml'
 jobs:
   build:
     name: Build Image
