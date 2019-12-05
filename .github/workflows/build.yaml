@@ -30,7 +30,7 @@ jobs:
       run: |-
         docker run \
           -v `pwd`:/workspace \
-          -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
+          -v /home/runner/.docker/config.json:/kaniko/.docker/config.json:ro \
           gcr.io/kaniko-project/executor:latest \
           --dockerfile Dockerfile \
           --context dir:///workspace/ \
