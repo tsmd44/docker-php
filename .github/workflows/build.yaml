@@ -36,8 +36,7 @@ jobs:
           --context dir:///workspace/ \
           --destination ${ECR_REGISTRY}/php:${{ matrix.php }}-${GITHUB_SHA} \
           --build-arg PHP_VERSION=${PHP_VERSION} \
-          --cache=true \
-          --cache-repo=${ECR_REGISTRY}/php/cache
+          --cache=true
   check:
     name: Status Check
     runs-on: ubuntu-18.04
