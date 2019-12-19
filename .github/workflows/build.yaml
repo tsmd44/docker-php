@@ -23,16 +23,16 @@ jobs:
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       with:
-        args: '
+        args: >
           -v `pwd`:/workspace
-          -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro
+          -v ${{ env.DOCKER_CONFIG }}/config.json:/kaniko/.docker/config.json:ro
           --dockerfile Dockerfile
           --context dir:///workspace/
-          --destination tsmd44/php:${{ matrix.php }}-${GITHUB_SHA}
-          --build-arg PHP_VERSION=${PHP_VERSION}
+          --destination tsmd44/php:${{ matrix.php }}-${{ env.GITHUB_SHA }}
+          --build-arg PHP_VERSION=${{ env.PHP_VERSION }}
           --cache=true
           --cache-repo tsmd44/php-cache
-          --no-push'
+          --no-push
   check:
     name: Status Check
     runs-on: ubuntu-18.04
