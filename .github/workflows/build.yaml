@@ -24,14 +24,14 @@ jobs:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       with:
         args: |-
-          -v `pwd`:/workspace \
-          -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
-          --dockerfile Dockerfile \
-          --context dir:///workspace/ \
-          --destination tsmd44/php:${{ matrix.php }}-${GITHUB_SHA} \
-          --build-arg PHP_VERSION=${PHP_VERSION} \
-          --cache=true \
-          --cache-repo tsmd44/php-cache \
+          -v `pwd`:/workspace
+          -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro
+          --dockerfile Dockerfile
+          --context dir:///workspace/
+          --destination tsmd44/php:${{ matrix.php }}-${GITHUB_SHA}
+          --build-arg PHP_VERSION=${PHP_VERSION}
+          --cache=true
+          --cache-repo tsmd44/php-cache
           --no-push
   check:
     name: Status Check
