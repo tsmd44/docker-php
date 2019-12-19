@@ -23,7 +23,7 @@ jobs:
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
       with:
-        args: |-
+        args: '
           -v `pwd`:/workspace
           -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro
           --dockerfile Dockerfile
@@ -32,7 +32,7 @@ jobs:
           --build-arg PHP_VERSION=${PHP_VERSION}
           --cache=true
           --cache-repo tsmd44/php-cache
-          --no-push
+          --no-push'
   check:
     name: Status Check
     runs-on: ubuntu-18.04
