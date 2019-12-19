@@ -19,13 +19,13 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Build Image
+      uses: docker://gcr.io/kaniko-project/executor:latest
       env:
         PHP_VERSION: ${{ matrix.php }}-fpm-alpine3.10
-      run: |-
-        docker run \
+      with:
+        args: |-
           -v `pwd`:/workspace \
           -v ${DOCKER_CONFIG}/config.json:/kaniko/.docker/config.json:ro \
-          gcr.io/kaniko-project/executor:latest \
           --dockerfile Dockerfile \
           --context dir:///workspace/ \
           --destination tsmd44/php:${{ matrix.php }}-${GITHUB_SHA} \
